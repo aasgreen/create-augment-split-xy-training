@@ -29,7 +29,7 @@ def thermal_noise_sequence(n_imgs):
     number_augments = 4
     simulation_iterations = 500
     snapshots = 4 #doesn't really matter
-    image_dimensions = [256,256]
+    image_dimensions = [172,172]
     betaMax = 135
     betaMin = 45
     maxDefect = 100

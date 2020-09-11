@@ -1,6 +1,6 @@
 #Mask Template:
 
-image_dimensions: [256,256]
+image_dimensions: [172,172]
 
 submasks:
     gauss:
