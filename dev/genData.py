@@ -43,8 +43,8 @@ def thermal_noise_sequence(n_imgs):
                 out_img = mask.mask(decrossI(beta, t.xy.snapshots['lattice'][-1]))
                 out_defect = t.xy.snapshots['defects'][-1]
 
-                plt.imsave('../data/'+current_time+'-{}.tiff'.format(i+j+k), out_img, cmap = 'gray')
-                np.savetxt('../data/label_'+current_time+'-{}.dat'.format(i+j+k), out_defect)
+                plt.imsave('../data/'+current_time+'-t_{}.tiff'.format(i+j+k), out_img, cmap = 'gray')
+                np.savetxt('../data/label_'+current_time+'-t_{}.dat'.format(i+j+k), out_defect)
 
 
 
