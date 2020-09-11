@@ -1,0 +1,14 @@
+
+
+generate: 
+    n: 256
+    kappa: 1
+    mu: .00001
+    beta: 5
+    alpha: 0
+    plots: 6
+    it: 100000
+    initScheme: 'random'
+    deltime: 0.02
+    frame_n: 1000
+
