@@ -25,17 +25,18 @@ def decrossI(beta,image):
 
 def thermal_noise_sequence(n_imgs):
     current_time = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
-    number_decrosses = 4
-    number_augments = 4
-    simulation_iterations = 500
+    number_decrosses = 10
+    number_augments = 10
+    simulation_iterations = 200
     snapshots = 4 #doesn't really matter
-    image_dimensions = [256,256]
+    image_dimensions = [512,512]
     betaMax = 135
     betaMin = 45
     maxDefect = 100
+    minDefect = 1
     mask = data_utils.augMask('./maskTemplate.yaml')
-    for i in np.arange(0,n_imgs,number_decrosses+number_augments):
-        n_defects = random.randint(0,maxDefect)
+    for i in np.arange(0,n_imgs,number_decrosses*number_augments):
+        n_defects = random.randint(minDefect,maxDefect)
         t = Texture(n_defects, simulation_iterations, snapshots, image_dimensions)
         for j in np.arange(0,number_decrosses):
             beta = random.uniform(betaMin, betaMax)
@@ -43,7 +44,7 @@ def thermal_noise_sequence(n_imgs):
                 out_img = mask.mask(decrossI(beta, t.xy.snapshots['lattice'][-1]))
                 out_defect = t.xy.snapshots['defects'][-1]
 
-                plt.imsave('../data/'+current_time+'-t_{}.tiff'.format(i+j+k), out_img, cmap = 'gray')
+                plt.imsave('../data/'+current_time+'-t_{}.tiff'.format(i*number_decrosses*number_augments+j*number_augments+k), out_img, cmap = 'gray')
                 np.savetxt('../data/label_'+current_time+'-t_{}.dat'.format(i+j+k), out_defect)
 
 

@@ -1,7 +1,5 @@
 #Mask Template:
-
-image_dimensions: [256,256]
-
+image_dimensions: [512,512]
 submasks:
     gauss:
         use: True
@@ -18,10 +16,10 @@ submasks:
             imgStdMin: 1
 
     smart:
-        use: False
+        use: True
         params:
-            strengthMax: .5
-            strengthMin: 0.1
+            strengthMax: .2
+            strengthMin: 0.0
             pathToNoise: '../data/noiseFiles/'
     skew:
         use: False
@@ -30,29 +28,34 @@ submasks:
             skewMin: 0.0
 
     circle:
-        use: False
+        use: True
         params:
             numCircles: 3
             radiusRange: [1,20]
-            brightnessRange: [-2,-2] 
+            brightnessRange: [-1,1] 
     grid:
         use: True
         params:
-            gridRange: .4
+            gridRange: .3
             
     row:
         use: False
         params:
             strengthMax: 30
             strengthMin: 0
+    gradient:
+        use: True
+        params:
+            lower_bound: .1
    
     scans:
         use: True
         params:
-            strength: .1
+            strength: .05
+
     speckle:
         use: True
         params:
             maxSpeckles: 8
             maxArea: 100
-            speckleStrength: 2
+            speckleStrength: .5

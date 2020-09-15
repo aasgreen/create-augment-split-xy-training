@@ -43,14 +43,15 @@ class augMask():
     def __init__(self,config_file):
         
         self.config_file = config_file
+
         with open(self.config_file, 'r') as config:
             self.cfg = yaml.safe_load(config)
-        self.submasks = self.cfg['submasks']
         self.dims = self.cfg['image_dimensions']
+        self.submasks = self.cfg['submasks']
         self.mask_list = [e for e in self.submasks if self.submasks[e]['use'] == True] #read in config file, create list of masks which user wants to run
         print('submasks: '+str(self.mask_list))
         self.mask = self.sub_mask_assemble()
-        #self.test_image = plt.imread('../data/2020-09-11_09-44-36-0.tiff')
+#        self.test_image = plt.imread('../data/2020-09-11_09-44-36-0.tiff')
         
 
     def sub_mask_assemble(self):
@@ -73,6 +74,8 @@ class augMask():
             out = self.scans(out)
         if 'standardize' in self.mask_list:
             out = self.standardize(out)
+        if 'gradient' in self.mask_list:
+            out = self.gradient(out)
         if 'speckle' in self.mask_list:
             out = self.speckle(out)
 
@@ -147,7 +150,28 @@ class augMask():
         return smart_wrapper
 
  
-        return None
+
+    def gradient(self, func):
+        print('gradient')
+        lower_bound = self.submasks['gradient']['params']['lower_bound']
+        def grad_wrap(*args, **kwargs):
+            theta = random.uniform(0, 2*np.pi)
+            strength = random.uniform(lower_bound, 1)
+            xx, yy = np.mgrid[0:1:np.complex(0,self.dims[0]), 0:1:np.complex(0,self.dims[1])]
+            xx = np.cos(theta)*xx+np.sin(theta)*yy
+            yy = np.cos(theta)*yy-np.sin(theta)*xx
+            mask = xx*yy
+            mask = (mask-mask.min())
+            mask = mask/mask.max()
+
+            mask = mask*(1-strength)
+            mask = mask+strength
+            return func(*args, **kwargs)*mask
+
+        return grad_wrap
+
+         
+
 
     def scans(self, func):
         print('scanning')
@@ -225,7 +249,7 @@ class augMask():
                 yCoord = random.randint(0,self.dims[1])
                 m1 = circle_mask(radius, xCoord, yCoord)
                 mask = mask+circle_mask(radius, xCoord, yCoord)
-            return np.clip(mask+func(*args, **kwargs), 0, 1)
+            return mask+func(*args, **kwargs)
 
         return circle_wrap
 
