@@ -1,5 +1,7 @@
 #Mask Template:
-image_dimensions: [512,512]
+
+image_dimensions: [172,172]
+
 submasks:
     gauss:
         use: True
