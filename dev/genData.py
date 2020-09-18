@@ -39,6 +39,8 @@ def thermal_noise_sequence(n_imgs):
     mask = data_utils.augMask('./maskTemplate.yaml')
     
     for i in np.arange(0,n_imgs,number_decrosses*number_augments):
+        if (i%10):
+            print('{} %'.format(i/n_imgs)
         n_defects = random.randint(minDefect,maxDefect)
         t = Texture(n_defects, simulation_iterations, snapshots, image_dimensions)
         for j in np.arange(0,number_decrosses):
