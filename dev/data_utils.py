@@ -87,7 +87,7 @@ class augMask():
         sigma_min = params['min']
         sigma_max = params['max']
 
-        print('gaussianing')
+        #print('gaussianing')
         def gauss_wrap(*args, **kwargs):
             return gaussian_filter(func(*args, **kwargs), sigma=random.uniform(sigma_min, sigma_max))
         return gauss_wrap
@@ -95,7 +95,7 @@ class augMask():
 
     def standardize(self, func):
                      
-        print('standarizing')
+        #print('standarizing')
         def standard_wrap(*args, **kwargs): 
             image = func(*args, **kwargs)
             mean = image.mean()
@@ -125,7 +125,7 @@ class augMask():
         return None
     
     def smart(self, func):
-        print('smarting')
+        #print('smarting')
         smartNoiseMax = self.submasks['smart']['params']['strengthMax']
         smartNoiseMin = self.submasks['smart']['params']['strengthMin']
         pathToNoise = self.submasks['smart']['params']['pathToNoise']
@@ -152,7 +152,7 @@ class augMask():
  
 
     def gradient(self, func):
-        print('gradient')
+        #print('gradient')
         lower_bound = self.submasks['gradient']['params']['lower_bound']
         def grad_wrap(*args, **kwargs):
             theta = random.uniform(0, 2*np.pi)
@@ -176,7 +176,7 @@ class augMask():
 
 
     def scans(self, func):
-        print('scanning')
+        #print('scanning')
         strength = self.submasks['scans']['params']['strength']
 
         def scan_wrap(*args, **kwargs):
@@ -190,7 +190,7 @@ class augMask():
         return scan_wrap
 
     def speckle(self, func):
-        print('speckling')
+        #print('speckling')
 
         max_speckles = self.submasks['speckle']['params']['maxSpeckles']
         max_area = self.submasks['speckle']['params']['maxArea']
@@ -220,7 +220,7 @@ class augMask():
                     px_y = np.mod(px_y + d_y, self.dims[0])
                     mask[px_x, px_y] = -1
                     mask[px_x, px_y] = -1
-            print(speckle_strength*mask.min())
+            #print(speckle_strength*mask.min())
                 
 
             return speckle_strength*mask +func(*args, **kwargs)
@@ -228,7 +228,7 @@ class augMask():
 
 
     def circle(self, func):
-        print('circling')
+        #print('circling')
         num_circles = self.submasks['circle']['params']['numCircles']
         radiusRange = self.submasks['circle']['params']['radiusRange']
         brightnessRange = self.submasks['circle']['params']['brightnessRange']
@@ -256,7 +256,7 @@ class augMask():
         return circle_wrap
 
     def grid(self, func):
-        print('gridding')
+        #print('gridding')
         bShift = self.submasks['grid']['params']['gridRange']
         dims = self.dims
         def grid_wrap(*args, **kwargs):

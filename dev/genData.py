@@ -149,11 +149,11 @@ class SimData():
 
         xy_times = xy.keys()
         defect_times = defect.keys()
-        print(xy_times)
-        print(defect_times)
+        #print(xy_times)
+        #print(defect_times)
 
         for txy, tdef in zip(xy_times, defect_times):
-            print('../data/{}.tiff'.format(txy))
+         #   print('../data/{}.tiff'.format(txy))
             im = np.array(xy.get(txy))
             dgrid = np.array(defect.get(tdef))
             plt.imsave('../data/'+self.current_time+'{}.tiff'.format(txy), schler(im), cmap = 'gray')
@@ -335,7 +335,7 @@ class xyModelFort():
 
             ###Writing to File on log time### 
             if t in twrite:
-                print(t)
+               # print(t)
                 #print(twrite)
                 if (savegrid == True):
                     xy_hf.create_dataset('t_{}'.format(t), data = ngrid)
@@ -377,7 +377,7 @@ class xyModelFort():
     def plotGrids(self):
         fig,ax = plt.subplots(ncols=2,nrows=4,sharex=True, sharey = True, figsize = (10,10))
         for i,a in enumerate(ax.ravel()):
-            print(i)
+            #print(i)
             a.imshow(self.snapshots['lattice'][i].T%(2*np.pi), cmap='twilight', vmin=0, vmax=np.pi*2)
             a.set_title('interation {}'.format(i*self.div))
         
