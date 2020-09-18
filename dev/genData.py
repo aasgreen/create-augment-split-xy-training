@@ -48,7 +48,7 @@ def thermal_noise_sequence(n_imgs):
                 out_defect = t.xy.snapshots['defects'][-1]
 
                 plt.imsave('../data/'+current_time+'-t_{}.tiff'.format(i*number_decrosses*number_augments+j*number_augments+k), out_img, cmap = 'gray')
-                np.savetxt('../data/label_'+current_time+'-t_{}.dat'.format(i+j+k), out_defect)
+                np.savetxt('../data/label_'+current_time+'-t_{}.dat'.format(i*number_decrosses*number_augments+j*number_augments+k), out_defect)
 
 
 

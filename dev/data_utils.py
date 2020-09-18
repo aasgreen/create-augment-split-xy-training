@@ -161,11 +161,13 @@ class augMask():
             xx = np.cos(theta)*xx+np.sin(theta)*yy
             yy = np.cos(theta)*yy-np.sin(theta)*xx
             mask = xx*yy
+
             mask = (mask-mask.min())
             mask = mask/mask.max()
 
             mask = mask*(1-strength)
             mask = mask+strength
+
             return func(*args, **kwargs)*mask
 
         return grad_wrap
